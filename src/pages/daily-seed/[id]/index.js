@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useRef } from 'react'
-import { Input } from '../components/form-elements/input'
-import Layout from '../components/layout'
-import Navbar from '../components/navbar'
-import { useAppContext } from '../context/state'
+import { Input } from '../../../components/form-elements/input'
+import Layout from '../../../components/layout'
+import Navbar from '../../../components/navbar'
+import { useAppContext } from '../../../context/state'
 
 export default function DailySeed() {
 
@@ -27,7 +27,6 @@ export default function DailySeed() {
                             type='text'
                             label='Initial Seed'
                             placeholder="You don't have to say much -- just enough to remember the moment."
-                            className='text-center'
                         />
                     </div>
                     <div>

@@ -1,12 +1,23 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { Input } from '../components/form-elements/input'
 import Layout from '../components/layout'
 import Navbar from '../components/navbar'
 import { useAppContext } from '../context/state'
+import { createNewJournal } from '@/data/journal'
 
 export default function StartYourReflection() {
+    const router = useRouter()
+
+    const createJournalEntry = (spreadId) => {
+        createNewJournal({
+            spread: Number(spreadId)
+        }).then((res) => {
+            router.push(`/daily-seed/${res?.id}`)
+        })
+    }
+
 
     return (
         <>
@@ -20,10 +31,10 @@ export default function StartYourReflection() {
             </div>
             <div>
                 <div>
-                    <Link href='/daily-seed'>
-                        <div>Draw One Card</div>
+                
+                        <button onClick={() => createJournalEntry(1)}>Draw One Card</button>
                         <div>Let the deck offer a message for your day</div>
-                    </Link>
+                   
                 </div>
                 <div>
                     <div>Choose A Spread</div>
