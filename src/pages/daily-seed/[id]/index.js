@@ -1,41 +1,115 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Input } from '../../../components/form-elements/input'
 import Layout from '../../../components/layout'
 import Navbar from '../../../components/navbar'
+import { spreadComponentsBySpreadId } from '@/components/spreads'
 import { useAppContext } from '../../../context/state'
+import { getUserProfile } from '@/data/auth'
+import { getJournalById, updateJournalById } from '@/data/journal'
 
 export default function DailySeed() {
+    const router = useRouter()
+    const {id} = router.query
+    const { sage, setSage } = useAppContext()
+    const [journal, setJournal] = useState({})
+    const spreadId = journal?.spread?.id
+    const SpreadComponent = spreadId ? spreadComponentsBySpreadId[spreadId] : null
+    const seed = useRef(null)
+    
+    useEffect(() => {
+        if(id){
+            getJournalById(Number(id)).then((journalData) => {
+                setJournal(journalData)
+                
+            })
+        }
+    
+        getUserProfile().then((profileData)=>{
+            if (profileData){
+                setSage(profileData)
+                }
+        }
+        )},[id])
+
+    
+    const updateSeedOnJournal = () => {
+        const updatedSeed = seed.current?.value || ""
+        const updatedJournal = {
+            initial_seed: updatedSeed
+        }
+        updateJournalById(id, updatedJournal).then(() => {
+            setJournal(updatedJournal)
+            router.push('/home')
+        })
+        
+    }
+
+    const startJournal = () => {
+        const updatedSeed = seed.current?.value || ""
+        const updatedJournal = {
+            initial_seed: updatedSeed
+        }
+        updateJournalById(id, updatedJournal).then(() => {
+            router.push(`/journals/${id}/edit`)
+        })
+    }
+    
 
     return (
         <>
-            <div className='flex justify-center  mt-10'>
-                <div className="card bg-emerald-800 w-7/12">
-                    <div className='text-center mt-10 mb-8'>
-                        <h1>Select Your Card</h1>
-                    </div>
-                    <div className='flex flex-row justify-center'>
-                        <div>
-                            Card Placeholder #1, #2, #3, will need a loop 
-                        </div>
+            <div>
+                {/*Header Information */}
+                <div>
+                    <div>
+                        <h1>{journal?.spread?.name}</h1>
                     </div>
                     <div>
-                        <div className='text-center mt-8'><h3>Leave a root of insight to return to later...</h3></div>
-                        <input 
-                            id="initialSeed"
-                            type='text'
-                            label='Initial Seed'
-                            placeholder="You don't have to say much -- just enough to remember the moment."
-                        />
+                        {journal?.spread?.num_positions ?
+                        (
+                            <>
+                                <h3>Select a Card to Guide Your Path, Sage.</h3>
+                            </>
+                        ) : (
+                            <>
+                                <h3>Reveal the Cards, Sage.</h3>
+                            </>
+                        )
+                        }
+                    </div>
+                </div>
+                {/*Cards to be flipped*/}
+                <div>
+                    <>
+                        {SpreadComponent ? (
+                            <SpreadComponent cards={journal.entry_cards}/>
+                        ):(
+                            <p>Unknown spread layout.</p>
+                        )}
+                    </>
+                </div>
+                {/*Initial Seed Capture*/}
+                <div>
+                    <div>
+                        <h3>Plant a seed of insight to nurture later...</h3>
                     </div>
                     <div>
-                        <Link href='home'>
-                            <button className="bg-goldenbrown hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full">Save Insight</button>
-                        </Link>
-                        <Link href='journals/1/edit'> {/*does not go to new, after the card is drawn it creates a journal entry, goes to edit*/}
-                            <button className="bg-goldenbrown hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full">Tend to Your Roots</button>
-                        </Link>
+                        <form className="box">
+                            <Input
+                                id="seed"
+                                refEl={seed}
+                                type="text"
+                                label=""
+                                placeholder="You don't have to say much -- just enough to remember the moment."
+                            />
+                        </form>
+                    </div>
+                    {/*Buttons*/}
+                    <div>
+                        <button onClick={() => updateSeedOnJournal()} className="bg-goldenbrown hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full">Save Insight</button>
+                        <button onClick={() => startJournal()}className="bg-goldenbrown hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full">Tend to Your Roots</button>
+
                     </div>
                 </div>
             </div>
