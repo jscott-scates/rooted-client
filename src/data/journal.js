@@ -35,3 +35,12 @@ export const updateJournalById = async(id, journal) => {
     return data
     
 }
+
+export function getChoices(){
+    return fetchWithResponse('journal-choices/',{
+        method:'GET',
+        headers: {
+            Authorization: `Token ${localStorage.getItem('token')}`
+        }
+    })
+}
