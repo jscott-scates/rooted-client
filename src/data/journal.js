@@ -19,6 +19,14 @@ export function getJournalById(id){
     })
 }
 
+export function getAllJournals() {
+    return fetchWithResponse('journal-entries',{
+        headers: {
+            Authorization: `Token ${localStorage.getItem('token')}`
+        }
+    })
+}
+
 export const updateJournalById = async(id, journal) => {
     const response = await fetch(`http://localhost:8000/journal-entries/${id}`, {
         method:'PUT',
@@ -34,6 +42,15 @@ export const updateJournalById = async(id, journal) => {
     const data = await response.json()
     return data
     
+}
+
+export function deleteJournalById(id) {
+    return fetchWithoutResponse(`journal-entries/${id}`, {
+        method: "DELETE",
+        headers: {
+            Authorization: `Token ${localStorage.getItem('token')}`
+        }
+    })
 }
 
 export function getChoices(){

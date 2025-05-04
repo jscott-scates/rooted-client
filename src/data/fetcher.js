@@ -1,5 +1,6 @@
 const API_URL = 'http://localhost:8000'
 
+//if a fetchWithoutResponse contains an error, throw the error status, else pass the 204 or other similar status through
 const checkError = (res) => {
     if (!res.ok) {
         throw Error(res.status)
@@ -32,5 +33,5 @@ export const fetchWithResponse = (resource, options) => fetch(`${API_URL}/${reso
     .catch(catchError)
 
 export const fetchWithoutResponse = (resource,options) => fetch(`${API_URL}/${resource}`, options)
-    .then(checkErrorJSON)
+    .then(checkError)
     .catch(catchError)

@@ -1,14 +1,25 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Input } from '../components/form-elements/input'
 import Layout from '../components/layout'
 import Navbar from '../components/navbar'
 import { useAppContext } from '../context/state'
 import { login } from '../data/auth'
+import { getAllJournals } from '@/data/journal'
+import JournalCard from '@/components/journalCard'
 
 export default function Home() {
-  
+  const [journalList, setJournalList] = useState([])
+
+  useEffect(() => {
+    getAllJournals().then((journalData) => {
+      setJournalList(journalData)
+    })
+  },[])
+
+  console.log(journalList)
+
   return (
     <>
         <div>
@@ -32,7 +43,11 @@ export default function Home() {
                 <h2>Your Path This Week</h2>
             </div>
             <div>
-                Journal Entries Placeholder
+                {journalList.map((journal) => (
+                  <Link href={`journals/${journal.id}`} key={journal.id}>
+                    <JournalCard journal={journal}/>
+                  </Link>
+                ))}
             </div>
         </div>
         <div>

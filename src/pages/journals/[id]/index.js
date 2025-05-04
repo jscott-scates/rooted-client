@@ -1,37 +1,64 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useRef } from 'react'
-import { Input } from '../../../components/form-elements/input'
+import { useEffect, useRef, useState } from 'react'
 import Layout from '../../../components/layout'
 import Navbar from '../../../components/navbar'
 import { useAppContext } from '../../../context/state'
+import { deleteJournalById, getJournalById } from '@/data/journal'
 
 
 export default function Journal() {
+    const router = useRouter()
+    const {id} = router.query
+    const [journal, setJournal] = useState({})
+
+    useEffect(() => {
+            if(id){
+                getJournalById(Number(id)).then((journalData) => {
+                    setJournal(journalData)
+                })
+            }
+    },[id])
+
+   const deleteEntry = () => {
+    deleteJournalById(Number(id))
+    router.push(`/journals`)
+   }
+
+   if (!journal) return 
 
     return (
         <>
             <div>
+                {/* Journal Header */}
                 <div>
-                    Card / Spread Image Placeholder
-                </div>
+                    <div>
+                        <h1>{journal.title}</h1>
+                    </div>
+                    <div>
+                        <div>
+                            Mood: {journal.mood}
+                        </div>
+                        <div>
+                            Lunar Phase: {journal.lunar_phase}                    
+                        </div>
+                        <div>
+                            Created On: {journal.created_on}
+                        </div>
+                    </div>
+               </div>
+               {/*Tip Tap Preview of HTML, takes the entry text input and converts it to HTML within the DIV*/}
+               <div dangerouslySetInnerHTML={{__html:journal.entry_text}}/>
+               {/* Buttons */}
+               <div>
                 <div>
-                    Created Title
-                </div>
-                <div>
-                    Tip Tap Preview
-                </div>
-                <div>
-                    Mood
-                </div>
-                <div>
-                    Lunar Phase
-                </div>
-                <div>
-                    <Link href="1/edit">
-                        <button>Edit Your Journal</button>
-                    </Link>
-                    <button>Delete Your Journal</button>
+                        <div>
+                            <button onClick={() => {router.push(`${id}/edit`)}}>Edit Your Journal</button>
+                        </div>
+                        <div>
+                            <button onClick={() => deleteEntry()}> Delete Your Journal Entry</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>

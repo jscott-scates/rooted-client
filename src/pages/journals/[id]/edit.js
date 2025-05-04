@@ -5,9 +5,11 @@ import { Input } from '../../../components/form-elements/input'
 import Layout from '../../../components/layout'
 import Navbar from '../../../components/navbar'
 import { useAppContext } from '../../../context/state'
-import Tiptap from '@/components/Tiptap'
 import { getChoices, getJournalById, updateJournalById } from '@/data/journal'
 import { Select } from '@/components/form-elements/select'
+import { Editor, EditorContent, useEditor } from '@tiptap/react'
+import { StarterKit } from '@tiptap/starter-kit'
+
 
 
 export default function EditJournal() {
@@ -16,21 +18,29 @@ export default function EditJournal() {
     const [journal, setJournal] = useState({})
     const [moodsList, setMoodsList] = useState([])
     const [lunarPhasesList, setLunarPhasesList] = useState([])
-    const entryTitle = useRef(journal.title)    
-    const mood = useRef(journal.mood)
-    const lunarPhase = useRef(journal.lunar_phase)
+    const entryTitle = useRef(journal?.title)    
+    const mood = useRef(journal?.mood)
+    const lunarPhase = useRef(journal?.lunar_phase)
+    const tiptapEditor = useEditor({
+        extensions: [StarterKit],
+        autofocus: false,
+        editable: true,
+        injectCSS: false,
+      })
+
 
     useEffect(() => {
-        if(id){
+        if (id && tiptapEditor){
             getJournalById(Number(id)).then((journalData) => {
                 setJournal(journalData)
+                tiptapEditor.commands.setContent(journalData.entry_text)
             })
         }
         getChoices().then((choices) => {
             setMoodsList(choices.moods)
             setLunarPhasesList(choices.lunar_phases)
         })
-    },[id])
+    },[id, tiptapEditor])
     
     useEffect(() => {
         if (journal.title && entryTitle.current) {
@@ -46,10 +56,12 @@ export default function EditJournal() {
 
     const saveJournalEntry = () => {
         const updatedTitle = entryTitle.current?.value || ""
+        const updatedEntryText = tiptapEditor.getHTML()
         const updatedMood = mood.current?.value
         const updatedLunarPhase = lunarPhase.current?.value
         const updatedJournal = {
             title: updatedTitle,
+            entry_text: updatedEntryText,
             mood: updatedMood,
             lunar_phase: updatedLunarPhase
         }
@@ -58,6 +70,8 @@ export default function EditJournal() {
             router.push(`/journals/${id}`)
         })
     }
+
+    if (!journal) return 
 
     return (
         <>
@@ -78,6 +92,7 @@ export default function EditJournal() {
                     </div>
                     <div>
                         {/*<Tiptap />*/}
+                        <EditorContent editor={tiptapEditor}/>
                     </div>
                     <div>
                         <div>

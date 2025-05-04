@@ -51,6 +51,7 @@ export default function DailySeed() {
         const updatedJournal = {
             initial_seed: updatedSeed
         }
+        
         updateJournalById(id, updatedJournal).then(() => {
             router.push(`/journals/${id}/edit`)
         })
