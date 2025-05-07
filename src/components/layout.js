@@ -1,8 +1,8 @@
-import '@/styles/globals.css'
-import Head from 'next/head'
-import { AppWrapper } from '../context/state'
+import '@/styles/globals.css';
+import Head from 'next/head';
+import { AppWrapper } from '../context/state';
 
-export default function Layout({children}) {
+export default function Layout({ children }) {
     return (
         <AppWrapper>
             <>
@@ -12,5 +12,5 @@ export default function Layout({children}) {
                 <main className="w-full">{children}</main>
             </>
         </AppWrapper>
-    )
+    );
 }

@@ -1,9 +1,9 @@
-import { fetchWithResponse} from "./fetcher";
+import { fetchWithResponse } from './fetcher';
 
-export function getDeckById(id){
+export function getDeckById(id) {
     return fetchWithResponse(`decks/${id}`, {
         headers: {
-            Authorization: `Token ${localStorage.getItem('token')}`
-        }
-    })
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        },
+    });
 }

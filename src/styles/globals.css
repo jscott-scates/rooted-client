@@ -3,32 +3,38 @@
 @tailwind utilities;
 
 body {
-    @apply bg-smokyblack text-goldenbrown
+    background-image: url('/images/background.png'); /* Update the path */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    @apply text-goldenbrown;
 }
 
 h1 {
-    @apply text-4xl font-bold text-sunset tracking-tight
+    @apply text-4xl font-bold text-sunset tracking-tight;
 }
 .card-container {
     perspective: 1000px;
-    width: 150px;
-    height: 220px;
+    width: 200px;
+    height: 300px;
     cursor: pointer;
-  }
-  
-  .card-inner {
+}
+
+.card-inner {
     width: 100%;
     height: 100%;
     transition: transform 0.6s;
     transform-style: preserve-3d;
     position: relative;
-  }
-  
-  .card-container.flipped .card-inner {
+}
+
+.card-container.flipped .card-inner {
     transform: rotateY(180deg);
-  }
-  
-  .card-front, .card-back {
+}
+
+.card-front,
+.card-back {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -38,13 +44,19 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .card-front {
+}
+
+.card-front {
     background-color: #333;
-  }
-  
-  .card-back {
+}
+
+.card-back {
     background-color: #fff;
     transform: rotateY(180deg);
-  }
+}
+.glow-text {
+    text-shadow:
+        0 0 2px #996515,
+        /* smaller, tighter inner glow */ 0 0 4px #b78c4d; /* softer outer glow */
+    -webkit-text-stroke: 0.4px #5a5a5a;
+}

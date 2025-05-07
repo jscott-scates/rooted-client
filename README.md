@@ -1,40 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Rooted Deck – Client Side
+
+Rooted Deck is a reflection and journaling app centered around the wisdom of trees and oracle card readings. This repository contains the **client-side React application** that enables users to draw cards, engage in spreads, and journal their insights within a calm, mythical interface.
+
+## Features
+
+- Card draws and spreads, including single and multi-card formats
+- Journal entry creation tied to specific readings
+- Mood and lunar phase tracking for each journal session
+- Rich text editing using [Tiptap](https://tiptap.dev/)
+- User authentication with private reflections
+- Card detail views with meanings, keywords, and symbolism
+- A nature-inspired design with Celtic-style visual elements
+
+## Tech Stack
+
+- **Framework**: React (Next.js)
+- **State Management**: useContext
+- **Text Editor**: Tiptap
+- **Styling**: Tailwind CSS
+- **Routing**: Next.js App Router
+- **Authentication**: JSON Web Tokens (JWT) stored in `localStorage`
+- **Backend Integration**: Django REST Framework
 
 ## Getting Started
 
-First, run the development server:
-
+### 1. Clone the Repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/your-username/rooted-deck-client.git
+cd rooted-deck-client```
+
+### 2. Install Dependencies
+```bash
+npm install ``` 
+### 3. Set Up Environment Variables
+Create a .env.local file in the root directory
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
+### 4. Start the Development Server
+```npm run dev```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Folder Structure Overview
+/components     → Reusable UI elements
+/pages          → Route-based components
+/context        → Global state providers
+/styles         → Tailwind and custom CSS
+/utils          → Helper functions
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### Future Enhancements
+- Deck Customization
+- Journal entry search and filtering
+- Optional reflection reminders
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+### Contributing
+Pull requests are welcome. For major changes, please open an issue to discuss what you would like to change.
