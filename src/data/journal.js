@@ -19,12 +19,25 @@ export function getJournalById(id) {
     });
 }
 
-export function getAllJournals() {
-    return fetchWithResponse('journal-entries', {
-        headers: {
-            Authorization: `Token ${localStorage.getItem('token')}`,
-        },
-    });
+//export function getAllJournals() {
+//    return fetchWithResponse('journal-entries', {
+ //       headers: {
+ //           Authorization: `Token ${localStorage.getItem('token')}`,
+  //      },
+  //  });
+//}
+
+export function getAllJournals(query=undefined){
+    let url='journal-entries'
+
+    if(query){
+        url += `?${query}`
+    }
+    return fetchWithResponse(url,{
+        headers:{
+            Authorization: `Token ${localStorage.getItem('token')}`
+        }
+    })
 }
 
 export const updateJournalById = async (id, journal) => {
@@ -62,4 +75,13 @@ export function getChoices() {
             Authorization: `Token ${localStorage.getItem('token')}`,
         },
     });
+}
+
+export function getSpreads() {
+    return fetchWithResponse('spreads',{
+        method: "GET",
+        headers: {
+            Authorization: `Token ${localStorage.getItem('token')}`
+        }
+    })
 }

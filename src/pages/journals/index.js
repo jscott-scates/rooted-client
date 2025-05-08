@@ -7,34 +7,57 @@ import Navbar from '../../components/navbar';
 import { useAppContext } from '../../context/state';
 import { getAllJournals } from '@/data/journal';
 import JournalCard from '@/components/journalCard';
+import Filter from '@/components/filter';
 
 export default function Journals() {
     const [journalList, setJournalList] = useState([]);
+    const [filteredJournalList, setFilteredJournalList] = useState([])
+    const [searching, setSearching] = useState(false)
 
     useEffect(() => {
         getAllJournals().then((journalsData) => {
             setJournalList(journalsData);
+            setSearching(false)
         });
     }, []);
 
-    console.log(journalList);
+    const searchOfJournals = (event) => {
+        getAllJournals(event).then(journalsData => {
+            if(journalsData){
+                setFilteredJournalList(journalsData)
+            }
+        })
+    }
 
     return (
         <>
             <div className="flex justify-center ">
                 <h1 className="font-display text-6xl mt-6 mb-4">Reflections</h1>
             </div>
+
             <div className="grid grid-cols-3 gap-3 mt-4">
-                {/*Journal Entries */}
-                <div className="col-span-2">
-                    {journalList.map((journal) => (
-                        <Link href={`/journals/${journal.id}`} key={journal.id}>
-                            <JournalCard journal={journal} />
-                        </Link>
-                    ))}
-                </div>
+                {searching ? (
+                   //Journal Entries
+                   <>
+                   <div className="col-span-2">
+                   {filteredJournalList.map((journal) => (
+                       <Link href={`/journals/${journal.id}`} key={journal.id}>
+                           <JournalCard journal={journal} />
+                       </Link>
+                   ))}
+               </div>
+               </>
+                ): ( //Journal Entries
+                    <div className="col-span-2">
+                        {journalList.map((journal) => (
+                            <Link href={`/journals/${journal.id}`} key={journal.id}>
+                                <JournalCard journal={journal} />
+                            </Link>
+                        ))}
+                    </div>)}
+
                 {/* Filter Bar */}
-                <div className="col-span-1">Filter Bar HERE</div>
+                <Filter onSearch={searchOfJournals} setSearching={setSearching} />
             </div>
         </>
     );

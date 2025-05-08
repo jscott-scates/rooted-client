@@ -82,7 +82,7 @@ export default function Journal() {
                     <div className="flex flex-col gap-1 mb-4">
                         <div className="flex flex-row gap-2 text-2xl font-body">
                             Mood:
-                            {journal.mood !== '0' && journal.mood !== '' ? (
+                            {journal.mood !== '0' && journal.mood !== '' && journal.mood !== null ? (
                                 <p>{journal.mood}</p>
                             ) : (
                                 <p className="italic ">
@@ -94,7 +94,7 @@ export default function Journal() {
                         <div className="flex flex-row gap-2 text-2xl font-body">
                             Lunar Phase:
                             {journal.lunar_phase !== '0' &&
-                            journal.lunar_phase !== '' ? (
+                            journal.lunar_phase !== '' && journal.lunar_phase !== null ? (
                                 <p>{journal.lunar_phase}</p>
                             ) : (
                                 <p className="italic">
@@ -108,7 +108,7 @@ export default function Journal() {
 <div className="relative z-10 flex justify-center mt-6">
     <div className="w-full max-w-3xl ">
         <h3 className="font-display text-2xl pt-2 mb-2">Journal Entry:</h3>
-        {journal.entry_text !== "<p></p>" ? (
+        {journal.entry_text !== "<p></p>" && journal.entry_text !== "" ? (
             <div
                 className="font-body text-xl leading-relaxed text-[#EFE5CB] break-words"
                 dangerouslySetInnerHTML={{
