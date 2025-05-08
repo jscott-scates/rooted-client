@@ -1,82 +1,90 @@
 import { useEffect, useRef, useState } from 'react';
 import { getChoices, getSpreads } from '@/data/journal';
 import { Select } from './form-elements/select';
+import { Input } from './form-elements/input';
 
-export default function Filter({onSearch, setSearching}) {
+export default function Filter({ onSearch, setSearching }) {
     const refEls = {
         name: useRef(),
         spread: useRef(),
         mood: useRef(),
-        lunarPhase: useRef()
+        lunarPhase: useRef(),
     };
 
-    const [showFilters, setShowFilters] = useState(false)
-    const [query, setQuery] = useState('')
-    const [spreads, setSpreads] = useState([])
-    const [moodList, setMoods] = useState([])
-    const [lunarPhasesList, setLunarPhases] = useState([])
+    const [showFilters, setShowFilters] = useState(false);
+    const [query, setQuery] = useState('');
+    const [spreads, setSpreads] = useState([]);
+    const [moodList, setMoods] = useState([]);
+    const [lunarPhasesList, setLunarPhases] = useState([]);
 
     const clearFilter = () => {
         for (let ref in refEls) {
             if (refEls[ref]?.current) {
-                refEls[ref].current.value = ['name'].includes(ref) ? "" : 0;
+                refEls[ref].current.value = ['name'].includes(ref) ? '' : 0;
             }
         }
-        onSearch('')
-        setQuery('')
-    }
+        onSearch('');
+        setQuery('');
+    };
 
     useEffect(() => {
         if (query) {
-            onSearch(query)
-            setSearching(true)
-        }else{
-            setSearching(false)
+            onSearch(query);
+            setSearching(true);
+        } else {
+            setSearching(false);
         }
-    },[query])
+    }, [query]);
 
     useEffect(() => {
         getChoices().then((choiceData) => {
-            console.log(choiceData)
-            setMoods(choiceData.moods)
-            setLunarPhases(choiceData.lunar_phases)
-        })
+            console.log(choiceData);
+            setMoods(choiceData.moods);
+            setLunarPhases(choiceData.lunar_phases);
+        });
         getSpreads().then((spreadsData) => {
-            setSpreads(spreadsData.map(spread => ({
-                label: spread.name,
-                value: spread.id  // stored in DB as an FK
-            })));
-        })
-    },[])
+            setSpreads(
+                spreadsData.map((spread) => ({
+                    label: spread.name,
+                    value: spread.id, // stored in DB as an FK
+                }))
+            );
+        });
+    }, []);
 
     const buildQuery = (key, value) => {
-        if (value && value !== "0") {
-            return `${key}=${value}&`
+        if (value && value !== '0') {
+            return `${key}=${value}&`;
         }
-        return ""
-    }
+        return '';
+    };
 
     const filter = () => {
-        let newQuery = ""
+        let newQuery = '';
         for (let refEl in refEls) {
-            newQuery += buildQuery(refEl, refEls[refEl].current?.value)
+            newQuery += buildQuery(refEl, refEls[refEl].current?.value);
         }
-        setQuery(newQuery)
-    }
+        setQuery(newQuery);
+    };
 
-    console.log(spreads)
+    console.log(spreads);
     return (
         <>
             <div>
-                <div>
-                    <h3>Filter Jouranls</h3>
+                <div className="mt-6">
+                    <Input
+                        placeholder="Search By Journal Title"
+                        id="name"
+                        refEl={refEls.name}
+                        addlClass="w-2/3"
+                    />
                 </div>
                 <div>
-                    <Select 
-                        refEl = {refEls.spread}
+                    <Select
+                        refEl={refEls.spread}
                         options={spreads}
                         title="Filter by Spread"
-                        addlClass='w-full'
+                        addlClass="w-2/3"
                     />
                 </div>
                 <div>
@@ -84,35 +92,39 @@ export default function Filter({onSearch, setSearching}) {
                         refEl={refEls.mood}
                         options={moodList}
                         title="Filter by Mood"
-                        addlClass='w-full'
+                        addlClass="w-2/3"
                     />
                 </div>
                 <div>
-                    <Select 
+                    <Select
                         refEl={refEls.lunarPhase}
                         options={lunarPhasesList}
                         title="Filter by Lunar Phase"
-                        addlClass='w-full'
+                        addlClass="w-2/3"
                     />
                 </div>
-                <div>
-                    <button className="button is-primary" onClick={filter}>
+                <div className="flex flex-row">
+                    <div className="pr-4">
+                        <button
+                            className="sm:w-auto py-0.5 px-2 bg-goldenbrown text-[#EFE5CB] font-body text-xs rounded-full shadow border border-[#EFE5CB] hover:bg-[#414831] transition"
+                            onClick={filter}
+                        >
                             Filter
-                    </button>
-                    <button className="button is-danger" onClick={clearFilter}>
-                        Clear
-                      </button>
+                        </button>
+                    </div>
+                    <div>
+                        <button
+                            className="sm:w-auto py-0.5 px-2 bg-goldenbrown text-[#EFE5CB] font-body text-xs rounded-full shadow border border-[#EFE5CB] hover:bg-[#414831] transition"
+                            onClick={clearFilter}
+                        >
+                            Clear
+                        </button>
+                    </div>
                 </div>
             </div>
         </>
-    )
+    );
 }
 
-
-
 //Filter Bar should contain search options by:
-    //journal title
-    //journal spread
-    //journal mood
-    //journal lunar phase
-    //date range
+//date range add in v2

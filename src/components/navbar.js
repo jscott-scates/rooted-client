@@ -14,14 +14,14 @@ import { useRouter } from 'next/router';
 export default function Navbar() {
     const { token, setToken } = useAppContext();
     const logoDestination = token ? '/home' : '/';
-    const router = useRouter()
+    const router = useRouter();
 
     const handleLogout = () => {
         localStorage.removeItem('token');
         setToken(null); // clear from context
         router.push('/'); // redirect to landing/login page
     };
-    
+
     return (
         <Disclosure as="nav">
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">

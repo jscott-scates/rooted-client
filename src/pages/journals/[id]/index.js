@@ -82,7 +82,9 @@ export default function Journal() {
                     <div className="flex flex-col gap-1 mb-4">
                         <div className="flex flex-row gap-2 text-2xl font-body">
                             Mood:
-                            {journal.mood !== '0' && journal.mood !== '' && journal.mood !== null ? (
+                            {journal.mood !== '0' &&
+                            journal.mood !== '' &&
+                            journal.mood !== null ? (
                                 <p>{journal.mood}</p>
                             ) : (
                                 <p className="italic ">
@@ -94,7 +96,8 @@ export default function Journal() {
                         <div className="flex flex-row gap-2 text-2xl font-body">
                             Lunar Phase:
                             {journal.lunar_phase !== '0' &&
-                            journal.lunar_phase !== '' && journal.lunar_phase !== null ? (
+                            journal.lunar_phase !== '' &&
+                            journal.lunar_phase !== null ? (
                                 <p>{journal.lunar_phase}</p>
                             ) : (
                                 <p className="italic">
@@ -105,23 +108,27 @@ export default function Journal() {
                     </div>
 
                     {/* Journal Entry Preview */}
-<div className="relative z-10 flex justify-center mt-6">
-    <div className="w-full max-w-3xl ">
-        <h3 className="font-display text-2xl pt-2 mb-2">Journal Entry:</h3>
-        {journal.entry_text !== "<p></p>" && journal.entry_text !== "" ? (
-            <div
-                className="font-body text-xl leading-relaxed text-[#EFE5CB] break-words"
-                dangerouslySetInnerHTML={{
-                    __html: journal.entry_text,
-                }}
-            />
-        ) : (
-            <h3 className="italic font-body text-xl text-[#EFE5CB] mb-2">
-                The page remains still, awaiting your thoughts.
-            </h3>
-        )}
-    </div>
-</div>
+                    <div className="relative z-10 flex justify-center mt-6">
+                        <div className="w-full max-w-3xl ">
+                            <h3 className="font-display text-2xl pt-2 mb-2">
+                                Journal Entry:
+                            </h3>
+                            {journal.entry_text !== '<p></p>' &&
+                            journal.entry_text !== '' ? (
+                                <div
+                                    className="font-body text-xl leading-relaxed text-[#EFE5CB] break-words"
+                                    dangerouslySetInnerHTML={{
+                                        __html: journal.entry_text,
+                                    }}
+                                />
+                            ) : (
+                                <h3 className="italic font-body text-xl text-[#EFE5CB] mb-2">
+                                    The page remains still, awaiting your
+                                    thoughts.
+                                </h3>
+                            )}
+                        </div>
+                    </div>
                 </div>
 
                 {/* Entry Cards Display (1/3 width) */}

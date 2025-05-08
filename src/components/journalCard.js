@@ -18,8 +18,8 @@ export default function JournalCard({ journal }) {
                     <div className="grid grid-cols-[1fr_auto] gap-8 text-sm text-[#CBBFAF] font-body">
                         {/* Mood & Lunar Phase */}
                         <div className="flex flex-col gap-[2px] text-[#CBBFAF] ">
-                            <div>{journal.mood}</div>
-                            <div>{journal.lunar_phase}</div>
+                            {journal.mood !== "0" && <div>{journal.mood }</div>}
+                            {journal.lunar_phase !== "0" &&<div>{journal.lunar_phase}</div>}
                         </div>
 
                         {/* Date */}

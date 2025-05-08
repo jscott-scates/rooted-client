@@ -82,39 +82,39 @@ export default function DailySeed() {
                         )}
                     </>
                 </div>
-               {/*Initial Seed Capture*/}
-<div className="flex flex-col items-center justify-center mt-10 space-y-6">
-    <div>
-        <h3 className="text-2xl font-body text-center text-[#EFE5CB]">
-            Plant a seed of insight to nurture later...
-        </h3>
-    </div>
-    <form className="w-full flex justify-center">
-        <Input
-            id="seed"
-            refEl={seed}
-            type="text"
-            label=""
-            placeholder="You don't have to say much -- just enough to remember the moment."
-            addlClass="w-3/4 text-lg p-3"
-        />
-    </form>
-    {/*Buttons*/}
-    <div className="flex flex-row justify-center gap-6 m-4 pb-4">
-        <button
-            onClick={() => updateSeedOnJournal()}
-            className="bg-goldenbrown hover:bg-emerald-900 text-[#EFE5CB]  font-display font-bold py-2 px-6 rounded-full text-lg"
-        >
-            Save Insight
-        </button>
-        <button
-            onClick={() => startJournal()}
-            className="bg-goldenbrown hover:bg-emerald-900 text-[#EFE5CB] font-display font-bold py-2 px-6 rounded-full text-lg"
-        >
-            Tend to Your Roots
-        </button>
-    </div>
-</div>
+                {/*Initial Seed Capture*/}
+                <div className="flex flex-col items-center justify-center mt-10 space-y-6">
+                    <div>
+                        <h3 className="text-2xl font-body text-center text-[#EFE5CB]">
+                            Plant a seed of insight to nurture later...
+                        </h3>
+                    </div>
+                    <form className="w-full flex justify-center">
+                        <Input
+                            id="seed"
+                            refEl={seed}
+                            type="text"
+                            label=""
+                            placeholder="You don't have to say much -- just enough to remember the moment."
+                            addlClass="w-3/4 text-lg p-3"
+                        />
+                    </form>
+                    {/*Buttons*/}
+                    <div className="flex flex-row justify-center gap-6 m-4 pb-4">
+                        <button
+                            onClick={() => updateSeedOnJournal()}
+                            className="bg-goldenbrown hover:bg-emerald-900 text-[#EFE5CB]  font-display font-bold py-2 px-6 rounded-full text-lg"
+                        >
+                            Save Insight
+                        </button>
+                        <button
+                            onClick={() => startJournal()}
+                            className="bg-goldenbrown hover:bg-emerald-900 text-[#EFE5CB] font-display font-bold py-2 px-6 rounded-full text-lg"
+                        >
+                            Tend to Your Roots
+                        </button>
+                    </div>
+                </div>
             </div>
         </>
     );

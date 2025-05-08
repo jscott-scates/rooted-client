@@ -21,7 +21,7 @@ export function Input({
                 ref={refEl}
                 onChange={onChangeEvent}
                 placeholder={placeholder}
-                className="bg-[#241A14] text-[#EFE5CB] placeholder-[#B7C6A1] font-body text-lg border border-[#DDBE8B] rounded-xl px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-goldenbrown"
+                className="bg-[#241A14] text-[#EFE5CB] placeholder-[#EFE5CB] font-body text-lg border border-[#DDBE8B] rounded-xl px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-goldenbrown"
             />
             {children}
         </div>

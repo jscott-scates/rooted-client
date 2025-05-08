@@ -36,32 +36,38 @@ export default function EditJournal() {
             setMoodsList(choices.moods);
             setLunarPhasesList(choices.lunar_phases);
         });
-    }, [id,tiptapEditor]);
+    }, [id, tiptapEditor]);
 
     function getOptionValueByLabel(options, label) {
-        const match = options.find(option => option.label === label);
+        const match = options.find((option) => option.label === label);
         return match ? match.value : '0'; // fallback to "Select a Mood" or similar
-      }
+    }
 
-      useEffect(() => {
+    useEffect(() => {
         setTimeout(() => {
-          if (entryTitle.current) {
-            entryTitle.current.value = journal.title || '';
-          }
-          if (mood.current && moodsList.length > 0) {
-            mood.current.value = getOptionValueByLabel(moodsList, journal.mood);
-          }
-          if (lunarPhase.current && lunarPhasesList.length > 0) {
-            lunarPhase.current.value = getOptionValueByLabel(lunarPhasesList, journal.lunar_phase);
-          }
+            if (entryTitle.current) {
+                entryTitle.current.value = journal.title || '';
+            }
+            if (mood.current && moodsList.length > 0) {
+                mood.current.value = getOptionValueByLabel(
+                    moodsList,
+                    journal.mood
+                );
+            }
+            if (lunarPhase.current && lunarPhasesList.length > 0) {
+                lunarPhase.current.value = getOptionValueByLabel(
+                    lunarPhasesList,
+                    journal.lunar_phase
+                );
+            }
         }, 0);
-      }, [journal, moodsList, lunarPhasesList]);
-      
+    }, [journal, moodsList, lunarPhasesList]);
+
     const saveJournalEntry = () => {
         const updatedTitle = entryTitle.current?.value;
         const updatedEntryText = tiptapEditor.getHTML();
         const updatedMood = mood.current?.value;
-        const updatedLunarPhase = lunarPhase.current?.value; 
+        const updatedLunarPhase = lunarPhase.current?.value;
         const updatedJournal = {
             title: updatedTitle,
             entry_text: updatedEntryText,
@@ -116,12 +122,13 @@ export default function EditJournal() {
                 <div className="grid grid-cols-4 gap-5 mt-8">
                     {/*Entry Card View*/}
                     <div className="col-span-2 flex items-start justify-center p-6">
-                        
-                    {journal.entry_cards?.length > 0 ? (
-  <EntryCardDisplay cards={journal.entry_cards} />
-) : (
-  <p className="text-[#B7C6A1] italic">Your cards will appear here once loaded.</p>
-)}
+                        {journal.entry_cards?.length > 0 ? (
+                            <EntryCardDisplay cards={journal.entry_cards} />
+                        ) : (
+                            <p className="text-[#B7C6A1] italic">
+                                Your cards will appear here once loaded.
+                            </p>
+                        )}
                     </div>
                     {/*Edit Form*/}
                     <div className="col-span-2 pt-6 mr-10 flex justify-start">
@@ -158,14 +165,15 @@ export default function EditJournal() {
                                     />
                                 </div>
                             </div>
-                            <div> 
+                            <div>
                                 {/*<Tiptap />*/}
-                                <h3 className="font-body text-2xl mb-1">Journal Entry:</h3>
+                                <h3 className="font-body text-2xl mb-1">
+                                    Journal Entry:
+                                </h3>
                                 <div className="text-[#EFE5CB] w-full min-h-48 border border-[#DDBE8B] rounded-md p-4 bg-[#241A14] shadow-sm">
-    <EditorContent editor={tiptapEditor} />
-  </div>
+                                    <EditorContent editor={tiptapEditor} />
+                                </div>
                             </div>
-                            
                         </form>
                     </div>
                 </div>

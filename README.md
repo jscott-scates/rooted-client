@@ -25,32 +25,38 @@ Rooted Deck is a reflection and journaling app centered around the wisdom of tre
 ## Getting Started
 
 ### 1. Clone the Repository
-```bash
+
+````bash
 git clone https://github.com/your-username/rooted-deck-client.git
 cd rooted-deck-client```
 
 ### 2. Install Dependencies
 ```bash
-npm install ``` 
+npm install ```
 ### 3. Set Up Environment Variables
 Create a .env.local file in the root directory
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:8000
-```
+````
+
 ### 4. Start the Development Server
-```npm run dev```
+
+`npm run dev`
 
 ### Folder Structure Overview
-/components     → Reusable UI elements
-/pages          → Route-based components
-/context        → Global state providers
-/styles         → Tailwind and custom CSS
-/utils          → Helper functions
+
+/components → Reusable UI elements
+/pages → Route-based components
+/context → Global state providers
+/styles → Tailwind and custom CSS
+/utils → Helper functions
 
 ### Future Enhancements
+
 - Deck Customization
 - Journal entry search and filtering
 - Optional reflection reminders
 
 ### Contributing
+
 Pull requests are welcome. For major changes, please open an issue to discuss what you would like to change.
