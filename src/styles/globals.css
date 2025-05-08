@@ -1,26 +1,62 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background-image: url('/images/background.png'); /* Update the path */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    @apply text-goldenbrown;
+}
+
+h1 {
+    @apply text-4xl font-bold text-sunset tracking-tight;
+}
+.card-container {
+    perspective: 1000px;
+    width: 200px;
+    height: 300px;
+    cursor: pointer;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.card-container.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-front {
+    background-color: #333;
+}
+
+.card-back {
+    background-color: #fff;
+    transform: rotateY(180deg);
+}
+.glow-text {
+    text-shadow:
+        0 0 2px #996515,
+        /* smaller, tighter inner glow */ 0 0 4px #b78c4d; /* softer outer glow */
+    -webkit-text-stroke: 0.4px #5a5a5a;
 }
